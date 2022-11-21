@@ -1,0 +1,264 @@
+package ejercicio4;
+
+import java.util.Scanner;
+
+public class BuscaMinas {
+	//Declaro e inicializo la variable contador como estatica para usarlo en todo
+	//el programa
+    static int contador=0;
+	public static void main(String[] args) {
+		//Abro el escáner  y declaro e inicializo un array de Strings de 5 x 5
+		Scanner entrada=new Scanner (System.in);
+		String [][] buscaminas = new String [5][5];
+		
+		//Hago un for para rellenar todas las posiciones del array
+		for (int i =0; i<buscaminas.length;i++) {
+			for (int j=0; j<buscaminas[i].length;j++) {
+			System.out.println("Introduce los valores de " + i + " , " + j);
+			String valores=entrada.next();
+			buscaminas [i][j]= valores;
+			}
+		}
+		
+		//Pido al usuario por consola la fila y columna donde quiere posicionarse
+		System.out.println("En que fila y columna te quieres colocar?");
+		int fila = entrada.nextInt();
+		int columna= entrada.nextInt();
+		
+		//Hago un if para cada posicion especifica del array, invocando a cada metodo
+		//segun sea necesario
+		if(fila==0 && columna==0) {
+			bombasabajo00102030(fila, columna, buscaminas);
+			bombaslados0010203040(fila, columna, buscaminas);
+			System.out.println(contador);
+			
+		}
+		if(fila==1 && columna==0 || fila==2 && columna==0 || fila==3 && columna==0) {
+			bombasabajo00102030(fila, columna, buscaminas);
+			bombaslados0010203040(fila, columna, buscaminas);
+			bombasarriba10203040(fila, columna, buscaminas);
+			System.out.println(contador);
+		}
+		if(fila==4 && columna==0) {
+			bombasarriba10203040(fila, columna, buscaminas);
+			bombaslados0010203040(fila, columna, buscaminas);
+			System.out.println(contador);
+			}
+					
+		if(fila==0 && columna==1 || fila==0 && columna==2 || fila==0 && columna==3) {
+			bombasabajofila0(fila, columna, buscaminas);
+			bombasladosfila0(fila, columna, buscaminas);
+			System.out.println(contador);
+		}
+		
+		if(fila==0 && columna==4) {
+			bombasabajo04(fila, columna, buscaminas);
+			bombaslados04(fila, columna, buscaminas);
+			System.out.println(contador);
+		}
+	
+		if(fila==1 && columna==1 || fila==1 && columna==2 || fila==1 && columna==3
+				||fila==2 && columna==1 || fila==2 && columna==2 || fila==2 && columna==3
+					||fila==3 && columna==1 || fila==3 && columna==2 || fila==3 && columna==3) {
+		
+				bombasarriba(fila, columna,buscaminas);
+				bombasabajo(fila, columna, buscaminas);
+				bombaslados(fila, columna, buscaminas);
+				System.out.println(contador);
+		
+
+	}
+	 	if(fila==1 && columna==4 || fila==2 && columna==4
+				|| fila==3 && columna==4) {
+	 			
+	 			bombasabajo04(fila, columna, buscaminas);
+	 			bombaslados04(fila, columna, buscaminas);
+	 			bombasarribacolumna4(fila, columna, buscaminas);
+	 			System.out.println(contador);
+	 	}
+	 	
+	 	if(fila==4 && columna==1 || fila==4 && columna==2 || fila==4 && columna==3) {
+	 		bombasladosfila4(fila, columna, buscaminas);
+	 		bombasrribafila4(fila, columna, buscaminas);
+	 		System.out.println(contador);
+	 		
+	 	}
+	 	
+	 	if (fila==4 && columna==4) {
+	 		bombaslados44(fila, columna, buscaminas);
+	 		bombasarriba44(fila, columna, buscaminas);
+	 		System.out.println(contador);
+	 	}
+	 		
+	 	}
+	
+	//Hago metodos para buscar arriba, laterales o abajo dependiendo de la posicion
+	//del usuario, también he contado la propia posicion del usuario si hay bomba o no
+	
+	public static void bombasarriba (int filas, int columnas, String array [][]) {
+
+		for (int i=filas-1; i<filas ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	
+	public static void bombasabajo (int filas, int columnas, String array [][]) {
+
+		for (int i=filas+1; i<filas+2 ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombaslados(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasabajo00102030 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas+1; i==filas+1 ; i++) {
+			for (int j=columnas; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombaslados0010203040(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasarriba10203040 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas-1; i==filas-1 ; i++) {
+			for (int j=columnas; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombaslados04(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas-1; j<=columnas;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasabajo04 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas+1; i==filas+1 ; i++) {
+			for (int j=columnas-1; j<=columnas;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasarribacolumna4 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas-1; i==filas-1 ; i++) {
+			for (int j=columnas-1; j<=columnas;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasrribafila4 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas-1; i==filas-1 ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasladosfila4(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombaslados44(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas-1; j<=columnas;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasarriba44 (int filas, int columnas, String array [][]) {
+
+		for (int i=filas-1; i==filas-1 ; i++) {
+			for (int j=columnas-1; j<=columnas;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasladosfila0(int filas, int columnas, String array [][]) {
+
+		for (int i=filas; i==filas ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+	public static void bombasabajofila0(int filas, int columnas, String array [][]) {
+
+		for (int i=filas+1; i==filas+1 ; i++) {
+			for (int j=columnas-1; j<=columnas+1;j++) {
+				if(array[i][j].equals("*")) {
+					contador++;
+				}
+				
+			}
+		}
+	}
+
